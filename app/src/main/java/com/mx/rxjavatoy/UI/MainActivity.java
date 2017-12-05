@@ -18,8 +18,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        just();
-        map();
+//        just();
+//        map();
+        flatMap();
+    }
+
+    private void flatMap() {
+        Observable<String> observable = Observable.just(1).flatMap(new Function<Integer, Observable<? extends String>>() {
+            @Override
+            public Observable<? extends String> apply(Integer integer) throws Exception {
+                return Observable.just(integer.toString());
+            }
+        });
+
+        observable.subscribe(getObserver());
     }
 
     private void just() {

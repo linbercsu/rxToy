@@ -1,5 +1,6 @@
 package com.mx.rxjavatoy;
 
+import com.mx.rxjavatoy.imp.ObservableFlatMap;
 import com.mx.rxjavatoy.imp.ObservableJust;
 import com.mx.rxjavatoy.imp.ObservableMap;
 
@@ -14,7 +15,7 @@ public abstract class Observable<T> {
     }
 
     public final <R> Observable<R> flatMap(Function<? super T, ? extends Observable<? extends R>> mapper) {
-        throw new RuntimeException("Not Implemented");
+        return new ObservableFlatMap<>(this, mapper);
     }
 
     public final Observable<T> observeOn(Scheduler scheduler) {
