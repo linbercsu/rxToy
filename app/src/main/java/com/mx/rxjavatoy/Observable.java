@@ -3,6 +3,7 @@ package com.mx.rxjavatoy;
 import com.mx.rxjavatoy.imp.ObservableFlatMap;
 import com.mx.rxjavatoy.imp.ObservableJust;
 import com.mx.rxjavatoy.imp.ObservableMap;
+import com.mx.rxjavatoy.imp.ObservableObserveOn;
 
 public abstract class Observable<T> {
 
@@ -19,7 +20,7 @@ public abstract class Observable<T> {
     }
 
     public final Observable<T> observeOn(Scheduler scheduler) {
-        throw new RuntimeException("Not Implemented");
+        return new ObservableObserveOn<>(this, scheduler);
     }
 
     public final void subscribe(Observer<? super T> observer) {

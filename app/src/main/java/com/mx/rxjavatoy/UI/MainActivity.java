@@ -10,6 +10,7 @@ import com.mx.rxjavatoy.Function;
 import com.mx.rxjavatoy.Observable;
 import com.mx.rxjavatoy.Observer;
 import com.mx.rxjavatoy.R;
+import com.mx.rxjavatoy.Scheduler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
 //        just();
 //        map();
-        flatMap();
+//        flatMap();
+        observeOn();
+    }
+
+    private void observeOn() {
+        Observable<String> observable = Observable.just("hello").observeOn(Scheduler.IO());
+        observable.subscribe(getObserver());
     }
 
     private void flatMap() {
@@ -56,22 +63,22 @@ public class MainActivity extends AppCompatActivity {
         return new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.e("test", "test: onSubscribe");
+                Log.e("test", "test: onSubscribe: " + Thread.currentThread().getId());
             }
 
             @Override
             public void onNext(String s) {
-                Log.e("test", "test: onNext " + s);
+                Log.e("test", "test: onNext " + s + " : " +  + Thread.currentThread().getId());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e("test", "test: onError");
+                Log.e("test", "test: onError" + " : " +  + Thread.currentThread().getId());
             }
 
             @Override
             public void onComplete() {
-                Log.e("test", "test: onComplete");
+                Log.e("test", "test: onComplete" + " : " +  + Thread.currentThread().getId());
             }
         };
     }
